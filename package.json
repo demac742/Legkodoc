@@ -1,0 +1,32 @@
+{
+  "name": "legkodok",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack -p 3021",
+    "dev:local": "next dev --webpack -p 3021",
+    "build": "next build",
+    "lint": "eslint",
+    "start": "next start -p 3021",
+    "start:local": "next start -p 3021"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "next": "^16.2.4",
+    "pdfmake": "^0.2.20",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^24.10.2",
+    "@types/pdfmake": "^0.2.11",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.2.4",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  }
+}

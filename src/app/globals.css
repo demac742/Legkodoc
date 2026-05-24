@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f6f4;
+  --foreground: #111111;
+  --muted: #6b6b6b;
+  --line: #d9d9d4;
+  --panel: #ffffff;
+  --ink-soft: #2b2b2b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(221, 214, 205, 0.52) 0%, rgba(221, 214, 205, 0) 25%),
+    radial-gradient(circle at 86% 16%, rgba(233, 228, 221, 0.58) 0%, rgba(233, 228, 221, 0) 28%),
+    radial-gradient(circle at 20% 82%, rgba(214, 207, 198, 0.28) 0%, rgba(214, 207, 198, 0) 22%),
+    radial-gradient(circle at 74% 72%, rgba(241, 237, 231, 0.4) 0%, rgba(241, 237, 231, 0) 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(180deg, #f7f4ee 0%, #f0ebe3 46%, #f8f5ef 100%),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.sans {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+.page-shell {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 24px;
+}
+
+.section {
+  padding: 56px 0;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.button-primary,
+.button-secondary {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.button-primary {
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+}
+
+.button-secondary {
+  background: #ffffff;
+  border: 1px solid #b8b8b2;
+  color: #111111;
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.field-label {
+  color: #1b1b1b;
+  display: block;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.field-control {
+  background: #ffffff;
+  border: 1px solid #cfcfca;
+  border-radius: 8px;
+  color: #111111;
+  min-height: 46px;
+  outline: none;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.field-control:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    padding: 18px;
+  }
+
+  .section {
+    padding: 36px 0;
+  }
+
+  .button-primary,
+  .button-secondary {
+    min-height: 48px;
+    width: 100%;
+  }
+}
