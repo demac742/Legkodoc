@@ -182,7 +182,7 @@ function DocumentSampleCard({
       </div>
 
       <div className="mt-5 rounded-[28px] border border-[#e3ddd4] bg-[#f8f6f2] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
-        <article className="mx-auto aspect-[210/297] w-full max-w-[420px] rounded-[20px] border border-[#dad4cc] bg-white px-6 py-7 text-[8.2px] leading-[1.5] text-[#262624] shadow-[0_14px_32px_rgba(17,17,17,0.08)]">
+        <article className="document-paper mx-auto aspect-[210/297] w-full max-w-[420px] rounded-[20px] border border-[#dad4cc] bg-white px-6 py-7 text-[8.2px] leading-[1.5] text-[#262624] shadow-[0_14px_32px_rgba(17,17,17,0.08)]">
           {titleFirstPreview ? titleBlock : null}
           {headerBlock}
           {!titleFirstPreview ? titleBlock : null}

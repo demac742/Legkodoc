@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import { Check, FileText } from "lucide-react";
 import { HomeDiscovery } from "@/components/home-discovery";
 import { RippleButton } from "../../components/animata/button/ripple-button";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "ЛЕГКОДОК",
+    description:
+      "Онлайн-сервис для быстрого заполнения простых юридических документов.",
+    type: "website",
+    url: "/",
+  },
+};
 
 const steps = [
   {

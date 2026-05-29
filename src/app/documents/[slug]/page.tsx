@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ConstructorClient } from "@/components/constructor-client";
 import { DocumentFaq } from "@/components/document-faq";
 import { getDocumentBySlug } from "@/lib/documents";
+import { SITE_URL } from "@/lib/site-url";
 import { DocumentBreadcrumbs, DocumentHero } from "./document-hero";
 import {
   DocumentInfoSection,
@@ -32,14 +33,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
+  const canonicalPath = `/documents/${document.slug}`;
+
   return {
     title: document.seo.title,
     description: document.seo.description,
     keywords: document.seo.keywords,
+    alternates: {
+      canonical: canonicalPath,
+    },
     openGraph: {
       title: document.seo.title,
       description: document.seo.description,
       type: "article",
+      url: canonicalPath,
     },
   };
 }
@@ -102,8 +109,7 @@ function buildDocumentJsonLd(
   document: NonNullable<ReturnType<typeof getDocumentBySlug>>,
   faqItems: NonNullable<ReturnType<typeof getDocumentBySlug>>["page"]["faq"],
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const pageUrl = `${baseUrl}/documents/${document.slug}`;
+  const pageUrl = `${SITE_URL}/documents/${document.slug}`;
 
   return [
     {
@@ -114,7 +120,7 @@ function buildDocumentJsonLd(
           "@type": "ListItem",
           position: 1,
           name: "Главная",
-          item: baseUrl,
+          item: SITE_URL,
         },
         {
           "@type": "ListItem",

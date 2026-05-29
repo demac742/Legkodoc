@@ -1117,7 +1117,7 @@ function ReceiptInlineConstructor({
       </div>
 
       <div className="bg-[#f8f7f4] p-4 md:p-8">
-        <article className="mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
+        <article className="document-paper mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
           <h3 className="text-center text-3xl font-bold">РАСПИСКА</h3>
 
           <div className="mt-4 grid gap-4 border-b border-[#e3e0da] pb-5 md:grid-cols-2 md:items-end">
@@ -1248,7 +1248,7 @@ function PowerOfAttorneyInlineConstructor({
       </div>
 
       <div className="bg-[#f8f7f4] p-4 md:p-8">
-        <article className="mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
+        <article className="document-paper mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
           <h3 className="text-center text-3xl font-bold">ДОВЕРЕННОСТЬ</h3>
 
           <div className="mt-4 grid gap-4 border-b border-[#e3e0da] pb-5 md:grid-cols-2 md:items-end">
@@ -1697,7 +1697,7 @@ function BankEnforcementInlineConstructor({
       </div>
 
       <div className="bg-[#f8f7f4] p-4 md:p-8">
-        <article className="mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
+        <article className="document-paper mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
           <div className="grid gap-7 md:grid-cols-[260px_1fr] md:items-start">
             <div className="text-[15px] leading-7 text-[#282826]">
               <ReceiptInlineField errors={errors} fieldId="documentDate" fieldLookup={fieldLookup} onChange={onChange} placeholder="дата заявления" values={values} widthClass="w-44" />
@@ -1989,7 +1989,7 @@ function EnforcementProceedingInlineConstructor({
       </div>
 
       <div className="bg-[#f8f7f4] p-4 md:p-8">
-        <article className="mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
+        <article className="document-paper mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
           <div className="grid gap-7 md:grid-cols-[240px_1fr] md:items-start">
             <div className="text-[15px] leading-7 text-[#282826]">
               <ReceiptInlineField
@@ -2014,25 +2014,15 @@ function EnforcementProceedingInlineConstructor({
                   values={values}
                   widthClass="w-72"
                 />{" "}
-                РОСП{" "}
-                <ReceiptInlineField
-                  errors={errors}
-                  fieldId="rospRegion"
-                  fieldLookup={fieldLookup}
-                  onChange={onChange}
-                  placeholder="регион РОСП"
-                  values={values}
-                  widthClass="w-64"
-                />
+                РОСП
               </p>
               <p>
-                УФССП России по{" "}
                 <ReceiptInlineField
                   errors={errors}
                   fieldId="ufsspRegion"
                   fieldLookup={fieldLookup}
                   onChange={onChange}
-                  placeholder="регион УФССП"
+                  placeholder="область"
                   values={values}
                   widthClass="w-64"
                 />
@@ -2720,7 +2710,7 @@ function EnforcementProgressInfoInlineConstructor({
       </div>
 
       <div className="bg-[#f8f7f4] p-4 md:p-8">
-        <article className="mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
+        <article className="document-paper mx-auto max-w-5xl rounded-lg border border-[#d9d9d4] bg-white px-5 py-7 shadow-sm md:px-10 md:py-10">
           <div className="grid gap-7 md:grid-cols-[240px_1fr] md:items-start">
             <div className="text-[15px] leading-7 text-[#282826]">
               <ReceiptInlineField
@@ -2753,7 +2743,7 @@ function EnforcementProgressInfoInlineConstructor({
                   fieldId="ufsspRegion"
                   fieldLookup={fieldLookup}
                   onChange={onChange}
-                  placeholder="регион УФССП"
+                  placeholder="область"
                   values={values}
                   widthClass="w-64"
                 />

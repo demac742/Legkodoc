@@ -192,8 +192,6 @@ function SimpleDocumentSeoBlock({ document }: { document: DocumentTemplate }) {
             </div>
           </article>
         </section>
-
-        <AfterDownloadSeoBlock items={document.page.afterDownload} />
       </div>
     </section>
   );
@@ -212,20 +210,14 @@ function DocumentSeoTemplateBlock({
   const intro = sections[0];
   const supportingSection = sections[1];
   const requiredData = sections[2];
-  const amountAndTerm = sections[3];
-  const comparison = sections[4];
-  const splitSection = sections[5];
-  const legalContext = sections[6];
-  const mistakes = sections[7];
-  const finalCheck = sections[8];
-  const interestAndPenalty = sections[9];
+  const interestAndPenalty = sections.find(isInterestPenaltySection);
   const showInterestAndPenalty =
     documentSlug === "raspiska-o-poluchenii-deneg" &&
     Boolean(interestAndPenalty?.paragraphs[0] && interestAndPenalty.paragraphs[1]);
-  const remainingSections = showInterestAndPenalty
-    ? sections.slice(10)
-    : sections.slice(9);
-  const comparisonLabels = getComparisonLabels(comparison?.title);
+  const topicSections = sections
+    .slice(3)
+    .filter((section) => section !== interestAndPenalty)
+    .filter((section) => !isMistakesSection(section));
 
   return (
     <section className="border-b border-[#d9d9d4] bg-[#f8f7f4]">
@@ -271,59 +263,87 @@ function DocumentSeoTemplateBlock({
         />
 
         <div className="mt-10 grid gap-6">
-          <div className="grid gap-6">
-            <SeoArticleCard section={amountAndTerm} />
-            {showInterestAndPenalty ? (
-              <InterestPenaltyBlock section={interestAndPenalty} />
-            ) : null}
-
-            {comparison ? (
-              <article className="panel overflow-hidden">
-                <div className="border-b border-[#d9d9d4] p-6 md:p-7">
-                  <p className="sans text-xs font-bold uppercase tracking-[0.14em] text-[#70706b]">
-                    Сравнение
-                  </p>
-                  <h3 className="mt-2 text-3xl font-semibold">{comparison.title}</h3>
-                </div>
-                <div className="grid gap-0 md:grid-cols-2">
-                  {comparison.paragraphs.map((paragraph, index) => (
-                    <div
-                      className="border-[#d9d9d4] p-6 leading-7 text-[#3f3f3c] md:border-l first:md:border-l-0"
-                      key={paragraph}
-                    >
-                      <p className="sans mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#70706b]">
-                        {comparisonLabels[index] ?? `Вариант ${index + 1}`}
-                      </p>
-                      <p>{paragraph}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ) : null}
-
-            <SeoArticleCard section={splitSection} variant="split" />
-            <SeoArticleCard section={legalContext} />
-            <LegalReferencePanel legalReferences={seoTemplate.legalReferences} />
-          </div>
+          <SeoTopicSections sections={topicSections} />
+          {showInterestAndPenalty ? (
+            <InterestPenaltyBlock section={interestAndPenalty} />
+          ) : null}
+          <LegalReferencePanel legalReferences={seoTemplate.legalReferences} />
         </div>
 
-        <SeoMistakesBlock mistakes={seoTemplate.mistakes} section={mistakes} />
+        <SeoMistakesBlock mistakes={seoTemplate.mistakes} />
 
-        <div className="mt-10">
-          <SeoArticleCard compact section={finalCheck} />
-        </div>
-
-        <AfterDownloadSeoBlock items={page.afterDownload} />
-
-        {remainingSections.length > 0 ? (
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {remainingSections.map((section) => (
-              <SeoArticleCard compact key={section.title} section={section} />
-            ))}
-          </div>
-        ) : null}
       </div>
     </section>
+  );
+}
+
+function SeoTopicSections({ sections }: { sections: ArticleSection[] }) {
+  if (sections.length === 0) {
+    return null;
+  }
+
+  return (
+    <section>
+      <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="sans text-sm font-bold uppercase tracking-[0.14em] text-[#70706b]">
+            Детали документа
+          </p>
+          <h3 className="mt-2 text-3xl font-semibold">
+            Что важно понимать перед заполнением
+          </h3>
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        {sections.map((section) => {
+          if (isComparisonSection(section)) {
+            return <SeoComparisonCard key={section.title} section={section} />;
+          }
+
+          if (isSplitSection(section)) {
+            return (
+              <SeoArticleCard
+                compact
+                key={section.title}
+                section={section}
+                variant="split"
+              />
+            );
+          }
+
+          return <SeoArticleCard compact key={section.title} section={section} />;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function SeoComparisonCard({ section }: { section: ArticleSection }) {
+  const comparisonLabels = getComparisonLabels(section.title);
+
+  return (
+    <article className="panel overflow-hidden">
+      <div className="border-b border-[#d9d9d4] p-6">
+        <p className="sans text-xs font-bold uppercase tracking-[0.14em] text-[#70706b]">
+          Сравнение
+        </p>
+        <h3 className="mt-2 text-3xl font-semibold">{section.title}</h3>
+      </div>
+      <div className="grid gap-0">
+        {section.paragraphs.map((paragraph, index) => (
+          <div
+            className="border-t border-[#d9d9d4] p-6 leading-7 text-[#3f3f3c] first:border-t-0"
+            key={paragraph}
+          >
+            <p className="sans mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#70706b]">
+              {comparisonLabels[index] ?? `Пункт ${index + 1}`}
+            </p>
+            <p>{paragraph}</p>
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -424,33 +444,6 @@ function InterestPenaltyBlock({ section }: { section?: ArticleSection }) {
   );
 }
 
-function AfterDownloadSeoBlock({ items }: { items: string[] }) {
-  return (
-    <section className="mt-10">
-      <article className="panel p-6 md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
-          <div>
-            <p className="sans text-sm font-bold uppercase tracking-[0.14em] text-[#70706b]">
-              После PDF
-            </p>
-            <h3 className="mt-3 text-3xl font-semibold">
-              Что сделать после скачивания
-            </h3>
-            <p className="mt-4 leading-7 text-[#4a4a47]">
-              После проверки PDF важно пройтись по готовому документу еще раз и
-              убедиться, что финальная версия подходит именно для вашей ситуации.
-            </p>
-          </div>
-
-          <article className="rounded-lg border border-[#d9d9d4] bg-white/78 p-6">
-            <BulletList items={items} />
-          </article>
-        </div>
-      </article>
-    </section>
-  );
-}
-
 function SeoUseCasesBlock({
   useCases,
 }: {
@@ -487,15 +480,9 @@ function SeoUseCasesBlock({
 
 function SeoMistakesBlock({
   mistakes,
-  section,
 }: {
   mistakes: DocumentSeoTemplate["mistakes"];
-  section?: ArticleSection;
 }) {
-  if (!section) {
-    return null;
-  }
-
   return (
     <section className="mt-10">
       <div className="panel p-6 md:p-8">
@@ -504,7 +491,9 @@ function SeoMistakesBlock({
             <p className="sans text-sm font-bold uppercase tracking-[0.14em] text-[#70706b]">
               {mistakes.eyebrow}
             </p>
-            <h3 className="mt-3 text-3xl font-semibold">{section.title}</h3>
+            <h3 className="mt-3 text-3xl font-semibold">
+              Частые ошибки и финальная проверка
+            </h3>
             <p className="mt-4 leading-7 text-[#4a4a47]">
               {mistakes.description}
             </p>
@@ -630,18 +619,15 @@ function LegalReferencePanel({
       </p>
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         {legalReferences.items.map((reference) => (
-          <a
-            className="rounded-md border border-[#d9d9d4] bg-white/70 p-4 transition hover:border-[#111111]"
-            href={reference.href}
+          <div
+            className="rounded-md border border-[#d9d9d4] bg-white/70 p-4"
             key={reference.href}
-            rel="nofollow noopener noreferrer"
-            target="_blank"
           >
             <span className="sans text-sm font-bold">{reference.label}</span>
             <span className="mt-2 block leading-6 text-[#4a4a47]">
               {reference.text}
             </span>
-          </a>
+          </div>
         ))}
       </div>
     </article>
@@ -662,7 +648,52 @@ function getComparisonLabels(title?: string) {
     return ["Судебный документ", "Несудебный документ"];
   }
 
-  return ["Вариант 1", "Вариант 2"];
+  return ["Пункт 1", "Пункт 2"];
+}
+
+function isInterestPenaltySection(section: ArticleSection) {
+  const normalizedTitle = section.title.toLowerCase();
+
+  return normalizedTitle.includes("процент") && normalizedTitle.includes("пени");
+}
+
+function isMistakesSection(section: ArticleSection) {
+  return section.title.toLowerCase().includes("ошиб");
+}
+
+function isComparisonSection(section: ArticleSection) {
+  if (section.paragraphs.length < 2) {
+    return false;
+  }
+
+  const normalizedTitle = section.title.toLowerCase();
+
+  return (
+    normalizedTitle.includes("разница") ||
+    normalizedTitle.includes("отлич") ||
+    normalizedTitle.includes("сравн") ||
+    (normalizedTitle.includes("расписк") &&
+      normalizedTitle.includes("договор")) ||
+    (normalizedTitle.includes("заявлен") &&
+      normalizedTitle.includes("жалоб")) ||
+    (normalizedTitle.includes("судебн") &&
+      normalizedTitle.includes("несудебн"))
+  );
+}
+
+function isSplitSection(section: ArticleSection) {
+  if (section.paragraphs.length < 2) {
+    return false;
+  }
+
+  const normalizedTitle = section.title.toLowerCase();
+
+  return (
+    normalizedTitle.includes("налич") ||
+    normalizedTitle.includes("перевод") ||
+    normalizedTitle.includes("лично") ||
+    normalizedTitle.includes("почт")
+  );
 }
 
 function getSplitLabels(title: string) {
@@ -676,5 +707,5 @@ function getSplitLabels(title: string) {
     return ["Лично", "Почтой"];
   }
 
-  return ["Вариант 1", "Вариант 2"];
+  return ["Пункт 1", "Пункт 2"];
 }

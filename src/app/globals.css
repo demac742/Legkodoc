@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -31,7 +32,7 @@ body {
     var(--background);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 a {
@@ -46,7 +47,11 @@ textarea {
 }
 
 .sans {
-  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-family: inherit;
+}
+
+.brand-logo {
+  font-family: "Inter", Arial, sans-serif;
 }
 
 .page-shell {
@@ -65,12 +70,16 @@ textarea {
   border-radius: 8px;
 }
 
+.document-paper {
+  font-family: "Times New Roman", Times, serif;
+}
+
 .button-primary,
 .button-secondary {
   align-items: center;
   border-radius: 999px;
   display: inline-flex;
-  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   gap: 8px;
@@ -104,7 +113,7 @@ textarea {
 .field-label {
   color: #1b1b1b;
   display: block;
-  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 8px;

@@ -1,5 +1,6 @@
 import type { TDocumentDefinitions } from "pdfmake/interfaces";
 import { buildDocumentRenderable } from "./document-content";
+import { PDF_FONT_NAME } from "./pdfmake";
 import type { DocumentTemplate, DocumentValues } from "./types";
 
 const watermarkPattern = Array.from({ length: 9 }, () =>
@@ -334,7 +335,7 @@ export function buildPdfDefinition(
       },
     },
     defaultStyle: {
-      font: "Roboto",
+      font: PDF_FONT_NAME,
     },
     info: {
       title: document.title,

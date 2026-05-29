@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "ЛЕГКОДОК | Юридические документы онлайн",
   description:
     "Заполните юридический документ онлайн, проверьте PDF с водяным знаком и оплатите чистую версию.",
@@ -15,11 +17,11 @@ export const metadata: Metadata = {
 };
 
 const legalItems = [
-  "Пользовательское соглашение",
-  "Оферта",
-  "Политика конфиденциальности",
-  "Согласие на обработку персональных данных",
-  "Политика cookie",
+  { title: "Пользовательское соглашение" },
+  { title: "Оферта" },
+  { title: "Политика конфиденциальности", href: "/privacy" },
+  { title: "Согласие на обработку персональных данных" },
+  { title: "Политика cookie" },
 ];
 
 const supportItems = ["Контакты", "Реквизиты", "Возврат и отмена оплаты"];
@@ -34,7 +36,7 @@ export default function RootLayout({
       <body>
         <header className="border-b border-[#d9d9d4] bg-[#f6f6f4]/90 backdrop-blur">
           <div className="page-shell flex items-center justify-between py-4">
-            <Link className="sans text-lg font-black tracking-normal" href="/">
+            <Link className="brand-logo text-lg font-black tracking-normal" href="/">
               ЛЕГКОДОК
             </Link>
             <nav className="sans flex items-center gap-4 text-sm text-[#3a3a3a]">
@@ -89,11 +91,21 @@ export default function RootLayout({
                     Правовое
                   </p>
                   <div className="mt-4 space-y-2.5 text-[15px] leading-6 text-[#262522]">
-                    {legalItems.map((item) => (
-                      <span className="block" key={item}>
-                        {item}
-                      </span>
-                    ))}
+                    {legalItems.map((item) =>
+                      item.href ? (
+                        <Link
+                          className="block transition hover:text-[#111111]"
+                          href={item.href}
+                          key={item.title}
+                        >
+                          {item.title}
+                        </Link>
+                      ) : (
+                        <span className="block" key={item.title}>
+                          {item.title}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
 
@@ -119,7 +131,12 @@ export default function RootLayout({
                   ситуации.
                 </p>
                 <div className="flex flex-wrap gap-4 text-[#5b5751]">
-                  <span>Политика конфиденциальности</span>
+                  <Link
+                    className="transition hover:text-[#111111]"
+                    href="/privacy"
+                  >
+                    Политика конфиденциальности
+                  </Link>
                   <span>© ЛЕГКОДОК</span>
                 </div>
               </div>

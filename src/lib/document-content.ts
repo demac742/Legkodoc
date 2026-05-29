@@ -494,8 +494,8 @@ function buildEnforcementRenderable(values: DocumentValues): DocumentRenderable 
   return {
     headerLines: [
       formatQuotedDate(value(values, "documentDate", "")),
-      `Начальнику ${value(values, "ospName")} РОСП ${value(values, "rospRegion")}`,
-      `УФССП России по ${value(values, "ufsspRegion")}`,
+      `Начальнику ${value(values, "ospName")} РОСП`,
+      value(values, "rospRegion"),
       `Адрес: ${value(values, "ospAddress")}`,
       `от взыскателя: ${value(values, "claimantHeaderFullName")}`,
       `адрес: ${value(values, "claimantRegistrationAddress")}`,
